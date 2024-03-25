@@ -1,0 +1,1331 @@
+%% Faza 1
+%% a
+[M, r, beta, L, alfa] = PS_PRJ_1_Faza_1(3, 4);
+clc;
+close all;
+
+% Ferestre fara parametrii
+figure(1);
+subplot(2,2,1);
+stem(triang(M));
+title('Fereastra Triunghiulara');
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,2,2);
+stem(blackman(M));
+title('Fereastra Blackman');
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,2,3);
+stem(hanning(M)); 
+title('Fereastra Hanning');
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,2,4);
+stem(hamming(M));
+title('Fereastra Hamming');
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+% Ferestrele Cebisev si Kaiser
+figure(2);
+subplot(2,3,1);
+stem(chebwin(M,r));
+title('Fereastra Cebisev pentru r=', sprintf("%.2f",r));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+
+subplot(2,3,2);
+stem(chebwin(M,r-5));
+title('Fereastra Cebisev pentru r=', sprintf("%.2f",r-5));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,3);
+stem(chebwin(M,r+5));
+title('Fereastra Cebisev pentru r=', sprintf("%.2f",r+5));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,4);
+stem(kaiser(M, beta));
+title('Fereastra Kaiser pentru beta =', sprintf("%.2f",beta));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,5);
+stem(kaiser(M, beta-1));
+title('Fereastra Kaiser pentru beta =', sprintf("%.2f",beta-1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,6);
+stem(kaiser(M, beta+1));
+title('Fereastra Kaiser pentru beta =', sprintf("%.2f",beta+1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+% Ferestrele pentru Lanczos si Tuckey
+figure(3);
+subplot(2,3,1);
+stem(lanczos(M,L)); 
+title('Fereastra Lanczos pentru L=', sprintf("%.2f", L));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,2);
+stem(lanczos(M,L-1)); 
+title('Fereastra Lanczos pentru L=', sprintf("%.2f", L-1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,3);
+stem(lanczos(M,L+1));
+title('Fereastra Lanczos pentru L=', sprintf("%.2f", L+1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,4);
+stem(tukeywin(M,alfa));
+title('Fereastra Tuckey pentru alfa=', sprintf("%.2f", alfa));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,5);
+stem(tukeywin(M,alfa-15));
+title('Fereastra Tuckey pentru alfa=', sprintf("%.2f", alfa-15));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,6);
+stem(tukeywin(M,alfa+15));
+title('Fereastra Tuckey pentru alfa=', sprintf("%.2f", alfa+15));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+%% b
+[M, r, beta, L, alfa] = PS_PRJ_1_Faza_1(3, 4);
+%Spectrul ferestrei dreptunghiulare
+figure(4);
+w=boxcar(M);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(W)));
+%%Pentru faza:
+%plot(om,angle(W));
+
+%freqz(boxcar(M),1,5000);
+title("Spectrul ferestrei Dreptunghiulare");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%Spectrele ferestrelor fara parametrii
+figure(5);
+subplot(2,2,1);
+w=triang(M);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+plot(om,20*log10(abs(W)));
+%freqz(triang(M),1,5000);
+title('Spectrul Ferestrei Triunghiulare');
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,2,2);
+w=blackman(M);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+plot(om,20*log10(abs(W)));
+%freqz(blackman(M),1,5000);
+title('Spectrul Ferestrei Blackman');
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,2,3);
+w=hanning(M);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+plot(om,20*log10(abs(W)));
+%freqz(hanning(M),1,5000);
+title('Spectrul Ferestrei Hanning');
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,2,4);
+w=hamming(M);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+plot(om,20*log10(abs(W)));
+%freqz(hamming(M),1,5000);
+title('Spectrul Ferestrei Hamming');
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+
+
+% Spectrele Ferestrelor Cebisev si Kaiser
+figure(6);
+subplot(2,3,1);
+w=chebwin(M,r);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,2);
+w=chebwin(M,r-5);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r-5));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,3);
+w=chebwin(M,r+5);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r+5));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,4);
+w=kaiser(M,beta);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,5);
+w=kaiser(M,beta-1);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta-1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,6);
+w=kaiser(M,beta+1);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta+1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+
+
+
+% Spectrele Ferestrelor Lanczos si Tuckey
+figure(7);
+subplot(2,3,1);
+w=lanczos(M,L);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,2);
+w=lanczos(M,L-1);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L-1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,3);
+w=lanczos(M,L+1);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L+1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,4);
+w=tukeywin(M,alfa);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Tukey pentru alfa=', sprintf("%.2f",alfa));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,5);
+w=tukeywin(M,alfa-15);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Tukey pentru alfa=', sprintf("%.2f",alfa-15));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+subplot(2,3,6);
+w=tukeywin(M,alfa+15);
+w=w/sum(w);
+[W,om]=freqz(w,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(W)));
+title('Spectrul Ferestrei Tukey pentru alfa=', sprintf("%.2f",alfa+15));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+
+%% c
+%{
+1.Fereastra dreptunghiulara:
+Lobul principal aproape ca nu se diferentiaza de cei secundari, avand o
+latime aproape egala, si o inaltime putin mai mare
+
+2.Fereastra triunghiulara:
+Asemanator ferestrei dreptunghiulare, lobul principal este lat, iar cei
+secundari au intaltimile aproape la fel de mari cu lobul principal
+
+3.Fereastra Blackamn:
+Lobul principal al acestei ferestre este foarte lat, dar inaltimea mica 
+a lobilor secundari imbunatateste situatia
+
+4.Fereastra Hanning:
+Comparand cu ferestrele de mai sus, fereastra Hanning are latimea 
+lobului princial mai mica, si valorile lobilor secundari relativ mici
+
+5.Fereastra Hamming:
+In comparatie cu fereastra Hanning lobul principal este mai lat,
+dar lobii secundari au valori mai mici, deci le pot clasa in aceeasi 
+categorie de calitate
+
+6.Fereastra Cebisev:
+Lobul principal este lat, dar valorile lobilor secundari sunt foarte 
+scazute, ceea ce o face de o calitate destul de buna
+
+7.Fereastra Kaiser:
+Lobul principal ingust si valorile scazute ale lobilor secundari,
+o fac probabil cea mai calitativa fereastra dintre cele 9
+
+8.Fereastra Lanzsos:
+Calitate asemanatoare ferestrei Cebisev, poate putin mai buna, 
+lobul principal fiind mai ingust, dar valorile lobilor secundari fiind
+putin mai mari
+
+9.Fereastra Tukey:
+Lobul principal ingust, si valorile lobilor secundari scazute, o fac o
+fereastra calitativa.
+
+%}
+
+%% Faza 2
+%a
+omega_c = PS_PRJ_1_Faza_2a(3,4) ;
+freq_c=omega_c/pi;
+
+%secventele pondere pentru filtrele ferestrelor neparametrice
+figure(8);
+
+subplot(1,5,1);
+w=boxcar(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title("Secventa pondere Dreptunghiulara");
+
+subplot(1,5,2);
+w=triang(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title("Secventa pondere Triunghiulara");
+
+subplot(1,5,3);
+w=blackman(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title("Secventa pondere Blackman");
+
+subplot(1,5,4);
+w=hanning(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title("Secventa pondere Hanning");
+
+subplot(1,5,5);
+w=hamming(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title("Secventa pondere Hamming");
+
+%Secventele pondere pentru filtrele ferestrelor Cebisev si Kaiser
+
+figure(9);
+subplot(2,3,1);
+w=chebwin(M,r);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Cebisev pentru r=', sprintf("%.2f",r));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+
+subplot(2,3,2);
+w=chebwin(M,r-5);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Cebisev pentru r=', sprintf("%.2f",r-5));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,3);
+w=chebwin(M,r+5);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Cebisev pentru r=', sprintf("%.2f",r+5));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,4);
+w=kaiser(M,beta);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Kaiser pentru beta =', sprintf("%.2f",beta));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,5);
+w=kaiser(M,beta-1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Kaiser pentru beta =', sprintf("%.2f",beta-1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,6);
+w=kaiser(M,beta+1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Kaiser pentru beta =', sprintf("%.2f",beta+1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+% Secventele pondere pentru filtrele ferestrelor Lanczos si Tuckey
+figure(10);
+subplot(2,3,1);
+w=lanczos(M,L);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Lanczos pentru L=', sprintf("%.2f", L));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,2);
+w=lanczos(M,L-1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Lanczos pentru L=', sprintf("%.2f", L-1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,3);
+w=lanczos(M,L+1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Lanczos pentru L=', sprintf("%.2f", L+1));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,4);
+w=tukeywin(M,alfa);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Tuckey pentru alfa=', sprintf("%.2f", alfa));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,5);
+w=tukeywin(M,alfa-15);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Tuckey pentru alfa=', sprintf("%.2f", alfa-15));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+subplot(2,3,6);
+w=tukeywin(M,alfa+15);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+stem(h);
+title('Secventa pondere Tuckey pentru alfa=', sprintf("%.2f", alfa+15));
+xlabel('Durata ferestrei M = 18');
+ylabel('Amplitudine');
+
+%Spectrele si fazele filtrelor ferestrelor neparametrice
+figure(11);
+subplot(2,5,1);
+w=boxcar(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(H)));
+title("Spectru filtru f. drept.");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%%Pentru faza:
+subplot(2,5,6);
+plot(om,angle(H));
+title("faza filtru f. drept.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,5,2);
+w=triang(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(H)));
+title("Spectru filtru f. triun.");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%%Pentru faza:
+subplot(2,5,7);
+plot(om,angle(H));
+title("faza filtru f. triun.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,5,3);
+w=blackman(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(H)));
+title("Spectru filtru f. blackman.");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%%Pentru faza:
+subplot(2,5,8);
+plot(om,angle(H));
+title("faza filtru f. blackman.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,5,4);
+w=hamming(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(H)));
+title("Spectru filtru f. hamming.");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%%Pentru faza:
+subplot(2,5,9);
+plot(om,angle(H));
+title("faza filtru f. hamming.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,5,5);
+w=hanning(M);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi); %Frecvencta normalizata
+%Pentru spectru:
+plot(om,20*log10(abs(H)));
+title("Spectru filtru f. hanning.");
+xlabel("Frecventa normalizata");
+ylabel("Amplitudine (dB)");
+
+%%Pentru faza:
+subplot(2,5,10);
+plot(om,angle(H));
+title("faza filtru f. hanning.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+%Spectrele si fazele filtrelor ferestrelor Cebisev si Kaiser
+figure(12);
+subplot(3,4,1);
+w=chebwin(M,r);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,2);
+plot(om,angle(H));
+title("faza filtru f. Cebisev.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,5);
+w=chebwin(M,r-5);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r-5));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,6);
+plot(om,angle(H));
+title("faza filtru f. Cebisev.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+
+subplot(3,4,9);
+w=chebwin(M,r+5);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r=', sprintf("%.2f",r+5));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,10);
+plot(om,angle(H));
+title("faza filtru f. Cevisev.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,3);
+w=kaiser(M,beta);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,4);
+plot(om,angle(H));
+title("faza filtru f. Kaiser.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,7);
+w=kaiser(M,beta-1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta-1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,8);
+plot(om,angle(H));
+title("faza filtru f. Kaiser.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,11);
+w=kaiser(M,beta+1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Kaiser pentru beta=', sprintf("%.2f",beta+1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,12);
+plot(om,angle(H));
+title("faza filtru f. Kaiser.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+
+
+
+
+%Spectrele si fazele filtrelor ferestrelor Lanczos si Tuckey
+figure(13);
+subplot(3,4,1);
+w=lanczos(M,L);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,2);
+plot(om,angle(H));
+title("faza filtru f. Lanczos.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,5);
+w=lanczos(M,L-1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L-1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,6);
+plot(om,angle(H));
+title("faza filtru f. Lanczos.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+
+subplot(3,4,9);
+w=lanczos(M,L+1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L=', sprintf("%.2f",L+1));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,10);
+plot(om,angle(H));
+title("faza filtru f. Lanczos.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,3);
+w=tukeywin(M,alfa);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Tuckey pentru alfa=', sprintf("%.2f",alfa));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,4);
+plot(om,angle(H));
+title("faza filtru f. Tuckey.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,7);
+w=tukeywin(M,alfa-15);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Tuckey pentru alfa=', sprintf("%.2f",alfa-15));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,8);
+plot(om,angle(H));
+title("faza filtru f. Tuckey.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(3,4,11);
+w=tukeywin(M,alfa+15);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Tuckey pentru alfa=', sprintf("%.2f",alfa+15));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(3,4,12);
+plot(om,angle(H));
+title("faza filtru f. Tuckey.");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+%{
+1.Cebisev pentru r+5
+2.Cebisev pentru r
+3.Cebisev pentru r-5
+4.Kaiser pentru beta+1
+5.Kaiser pentru beta
+6.Kaiser pentru beta-1
+7.Lanczos pentru L+1
+8.Lanczos pentru L
+9.Lanczos pentru L-1
+10.Tuckey pentru alfa+15
+11.Tuckey pentru alfa
+12.Tuckey pentru alfa-15
+13.Blackman
+14.Hamming
+15.Hanning
+16.Dreptunghiular
+17.Triunghiular
+
+Corespunde partial cu clasificarea de la tema; Fereastra
+Cebisev este in continuare pe primul loc, Kaiser pe locul 3. Blackman s-a
+clasat mai jos decat in topul din tema. In rest este destul de asemanator.
+Am ales aceasta ordine in functie de raportul dintre latimea lobului
+principal si inaltimea lobilor secundari.
+%}
+
+%% b
+%Pentru fereastra #1 = Chebisev pentru r+5
+figure(14);
+subplot(2,3,1);
+w=chebwin(M,r+5);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r= si M=18', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,4);
+plot(om,angle(H));
+title("faza filtru f. Cebisev. M=18");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,3,2);
+w=chebwin(M+(M/2),r+5);
+w=w/sum(w);
+h=fir1(M+(M/2)-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r= si M=27', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,5);
+plot(om,angle(H));
+title("faza filtru f. Cebisev. pentru M=27");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,3,3);
+w=chebwin(2*M,r+5);
+w=w/sum(w);
+h=fir1(2*M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Cebisev pentru r= si M=36', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,6);
+plot(om,angle(H));
+title("faza filtru f. Cebisev. pentru M=36");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+
+
+figure(15);
+subplot(2,3,1);
+w=lanczos(M,L-1);
+w=w/sum(w);
+h=fir1(M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L= si M=18', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,4);
+plot(om,angle(H));
+title("faza filtru f. Lanczos pentru M=18");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,3,2);
+w=lanczos(M+(M/2)+1,L-1);
+h=fir1(M+(M/2),freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L= si M=27', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,5);
+plot(om,angle(H));
+title("faza filtru f. Lanczos pentru M=27");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+subplot(2,3,3);
+w=lanczos(2*M,L-1);
+w=w/sum(w);
+h=fir1(2*M-1,freq_c,w);
+[H,om]=freqz(h,1,5000);
+om=om/(2*pi);
+plot(om,20*log10(abs(H)));
+title('Spectrul Ferestrei Lanczos pentru L= si M=36', sprintf("%.2f",r));
+xlabel('Frecventa normalizata');
+ylabel('Amplitudine (dB)');
+
+%%Pentru faza:
+subplot(2,3,6);
+plot(om,angle(H));
+title("faza filtru f. Lanczos pentru M=36");
+xlabel("Frecventa normalizata");
+ylabel("faza in rad");
+
+%{
+Cel mai slab filtru Cebisev este cel cu M initial = 18
+Cel mai bun filtru Lanczos este cel cu 2*M = 36
+Dar, in continuare filtrul ferestrei Cebisev va vi mai calitativ decat
+filtrul ferestrei Lanczos, in ciuda modificarii M ului, tinand cont de
+latimea lobului principal si valorile lobilor secundari
+%}
+
+%% Faza 3
+%b
+
+[omega_p,omega_s,Delta_p] = PS_PRJ_1_Faza_3b(3,4) ;
+Delta_s=Delta_p;
+omega_s=1.2856;
+%Fereastra de lucru va fi fereastra Cebisev pentru r+5
+wb = [0.5, 0.75, 0.25];     %Am ales wb si Mb in aceasta ordine ca sa 
+Mb = [6*M, M+(M/2), M];     %pot afisa in ordinea performantei secventele
+k=1;                        %am ales 6*M ca sa am Delta_pr si Delta_sr<=Delta_p
+figure(16);
+for i=1:3
+    omega_c=(1-wb(i))*omega_p+wb(i)*omega_s;
+    freq_c=omega_c/pi;
+    for j=1:3
+        w=chebwin(Mb(j),r+5);
+        w=w/sum(w);
+        h=fir1(Mb(j)-1, freq_c, w);
+        [Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+        suma_tolerantelor = Delta_pr + Delta_sr;
+        subplot(3,3,k);
+        k=k+1;
+        stem(h);
+        title(['Secventa pondere pentru M=' sprintf('%.2f', Mb(j)) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+        %[H,om]=freqz(h,1,5000);
+        %om=om/(2*pi);
+        %plot(om,20*log10(abs(H)));
+    end
+end
+k=1;
+figure(17);
+for i=1:3
+    omega_c=(1-wb(i))*omega_p+wb(i)*omega_s;
+    freq_c=omega_c/pi;
+    for j=1:3
+        w=chebwin(Mb(j),r+5);
+        w=w/sum(w);
+        h=fir1(Mb(j)-1, freq_c, w);
+        [Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+        [H,om]=freqz(h,1,5000);
+        om=om/(2*pi);
+        subplot(3,3,k);
+        plot(om,20*log10(abs(H)));
+        line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+
+        line(xlim, 20 * log10(1 + Delta_p/100) * ones(1, 2), 'Color', 'g');
+        line(xlim, 20 * log10(1 - Delta_p/100) * ones(1, 2), 'Color', 'g');
+
+        line(xlim, 20 * log10(Delta_s/100) * ones(1, 2), 'Color', 'g');
+        title(['Spectrul pentru M=' sprintf('%.2f', Mb(j)) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', Delta_pr=' sprintf('%.2f', Delta_pr) ', Delta_sr=' sprintf('%.2f', Delta_sr)]); 
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+        k=k+1;
+
+    end
+end
+k=1;
+figure(18);
+for i=1:3
+    omega_c=(1-wb(i))*omega_p+wb(i)*omega_s;
+    freq_c=omega_c/pi;
+    for j=1:3
+        w=chebwin(Mb(j),r+5);
+        w=w/sum(w);
+        h=fir1(Mb(j)-1, freq_c, w);
+        [Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+        [H,om]=freqz(h,1,5000);
+        om=om/(2*pi);
+        subplot(3,3,k);
+        plot(om,angle(H));
+        line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+        title(['Faza pentru M=' sprintf('%.2f', Mb(j)) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', Delta_pr=' sprintf('%.2f', Delta_pr) ', Delta_sr=' sprintf('%.2f', Delta_sr)]); 
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+        k=k+1;
+
+    end
+end
+
+%% Faza 4
+%{
+clc;
+close all;
+suma_minima=1;
+M_min=0;
+w_min=-1;
+k_min=0;
+k=19;
+for wc=0:0.25:0.50
+    omega_c=(1-wc)*omega_p+wc*omega_s;
+    freq_c=omega_c/pi;
+    for Mc=90:-1:30
+        w=chebwin(Mc,r+30);
+        w=w/sum(w);
+        h=fir1(Mc-1, freq_c, w);
+        [Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+        suma_tolerantelor = Delta_pr + Delta_sr;
+        if suma_minima>suma_tolerantelor
+            suma_minima = suma_tolerantelor;
+            M_min=Mc;
+            w_min=wc;
+            k_min=k;
+        end
+        figure(k);
+        k=k+1;
+        [H,om]=freqz(h,1,5000);
+        om=om/(2*pi);
+        plot(om,20*log10(abs(H)));
+        title(['Spectrul pentru M=' sprintf('%.2f', Mc) ...
+            ' si w=' sprintf('%.2f', wc) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+        %[H,om]=freqz(h,1,5000);
+        %om=om/(2*pi);
+        %plot(om,20*log10(abs(H)));
+    end
+end
+ suma_minima
+ M_min
+ w_min
+ k_min
+ %{
+Dupa primul set de teste a rezultat ca filtrul cel mai potrivit are
+urmatoarele date:
+suma_minima =
+
+
+    0.41
+
+
+M_min =
+
+    33
+
+
+w_min =
+
+    0.5000
+
+Delta_pr = 0.2079
+Delta_sr = 0.2059
+, Testele au fost folosite pentru Cebisev cu r+5
+Dar, suma este mult prea mare
+
+
+Dupa al doilea set de teste: am gasit un filtru potrivit cu aceste
+caracteristici:
+M=74.00 si w=0.50, si Suma Tolerantelor=0.06
+ %}
+%}
+%GOLD
+M = 35;
+wc = 0.50;
+omega_p = 0.9340;
+omega_s = 1.2856;
+omega_c = (1 - wc) * omega_p + wc * omega_s;
+freq_c = omega_c / pi;
+w = chebwin(M, r-57);
+w = w / sum(w);
+h = fir1(M - 1, freq_c, w);
+[Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+suma_tolerantelor = Delta_pr + Delta_sr;
+[H, om] = freqz(h, 1, 5000);
+om = om / (2 * pi);
+figure(19);
+subplot(3, 3, 1);
+plot(om, 20 * log10(abs(H)));
+line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+
+        line(xlim, 20 * log10(1 + Delta_p/100) * ones(1, 2), 'Color', 'g');
+        line(xlim, 20 * log10(1 - Delta_p/100) * ones(1, 2), 'Color', 'g');
+
+        line(xlim, 20 * log10(Delta_s/100) * ones(1, 2), 'Color', 'g');
+title(['Spectrul pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+subplot(3, 3, 4);
+plot(om, angle(H));
+title(['Faza pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+xlabel("Frecventa normalizata");
+ylabel("Faza in rad");
+subplot(3,3,7);
+stem(h);
+title(['Secventa pondere pentru M=' sprintf('%.2f', M) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+
+%SILVER
+M = 36;
+wc = 0.50;
+omega_p = 0.9340;
+omega_s = 1.2856;
+omega_c = (1 - wc) * omega_p + wc * omega_s;
+freq_c = omega_c / pi;
+w = chebwin(M, r-56);
+w = w / sum(w);
+h = fir1(M - 1, freq_c, w);
+[Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+suma_tolerantelor = Delta_pr + Delta_sr;
+[H, om] = freqz(h, 1, 5000);
+om = om / (2 * pi);
+figure(19);
+subplot(3, 3, 2);
+plot(om, 20 * log10(abs(H)));
+line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+
+        line(xlim, 20 * log10(1 + Delta_p/100) * ones(1, 2), 'Color', 'g');
+        line(xlim, 20 * log10(1 - Delta_p/100) * ones(1, 2), 'Color', 'g');
+
+        line(xlim, 20 * log10(Delta_s/100) * ones(1, 2), 'Color', 'g');
+title(['Spectrul pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+subplot(3, 3, 5);
+plot(om, angle(H));
+title(['Faza pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+xlabel("Frecventa normalizata");
+ylabel("Faza in rad");
+subplot(3,3,8);
+stem(h);
+title(['Secventa pondere pentru M=' sprintf('%.2f', M) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+    
+%BRONZE
+M = 37;
+wc = 0.50;
+omega_p = 0.9340;
+omega_s = 1.2856;
+omega_c = (1 - wc) * omega_p + wc * omega_s;
+freq_c = omega_c / pi;
+w = chebwin(M, r -57);
+w = w / sum(w);
+h = fir1(M - 1, freq_c, w);
+[Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+suma_tolerantelor = Delta_pr + Delta_sr;
+[H, om] = freqz(h, 1, 5000);
+om = om / (2 * pi);
+figure(19);
+subplot(3, 3, 3);
+plot(om, 20 * log10(abs(H)));
+line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+
+        line(xlim, 20 * log10(1 + Delta_p/100) * ones(1, 2), 'Color', 'g');
+        line(xlim, 20 * log10(1 - Delta_p/100) * ones(1, 2), 'Color', 'g');
+
+        line(xlim, 20 * log10(Delta_s/100) * ones(1, 2), 'Color', 'g');
+title(['Spectrul pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+subplot(3, 3, 6);
+plot(om, angle(H));
+title(['Faza pentru M=' sprintf('%.2f', M) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+xlabel("Frecventa normalizata");
+ylabel("Faza in rad");
+subplot(3,3,9);
+stem(h);
+title(['Secventa pondere pentru M=' sprintf('%.2f', M) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor)]);
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+
+%% Faza 5
+%Asemanator fazei 4, am facut mai multe teste in care am variat variabilele
+% si am am ajuns la aceste rezultate
+suma_minima=1;
+M_min=0;
+w_min=-1;
+k_min=0;
+k=20;
+omega_p=1.4740;
+omega_s=1.6746;
+banda_tranzitie_ingusta = 100;
+wc=0.50;
+Mc=61;
+%for omega_p=2*pi/4:0.05:3*pi/4 
+%    for omega_s=omega_p:0.05:3*pi/4
+         omega_c=(1-wc)*omega_p+wc*omega_s;
+         freq_c=omega_c/pi;
+              w=chebwin(Mc,r-55);
+              w=w/sum(w);
+              h=fir1(Mc-1, freq_c, w);
+              [Delta_pr, Delta_sr] = faza_3_a(h, omega_p, omega_s);
+              [H, om] = freqz(h, 1, 5000);
+                om = om / (2 * pi);
+              suma_tolerantelor = Delta_pr + Delta_sr;
+              banda_tranzitie_ingusta = omega_s-omega_p;
+              if suma_minima>suma_tolerantelor
+                suma_minima = suma_tolerantelor;
+                M_min=Mc;
+                w_min=wc;
+                k_min=k;
+              end
+         %     if suma_tolerantelor <0.07
+     figure(20);
+subplot(1, 3, 1);
+plot(om, 20 * log10(abs(H)));
+line([omega_p/(2*pi), omega_p/(2*pi)], ylim, 'Color', 'r');
+        line([omega_c/(2*pi), omega_c/(2*pi)], ylim, 'Color', 'r');
+        line([omega_s/(2*pi), omega_s/(2*pi)], ylim, 'Color', 'r');
+
+        line(xlim, 20 * log10(1 + Delta_p/100) * ones(1, 2), 'Color', 'g');
+        line(xlim, 20 * log10(1 - Delta_p/100) * ones(1, 2), 'Color', 'g');
+
+        line(xlim, 20 * log10(Delta_s/100) * ones(1, 2), 'Color', 'g');
+title(['Spectrul pentru M=' sprintf('%.2f', Mc) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor) ...
+        ',b. ingusta= ' sprintf('%.2f', banda_tranzitie_ingusta)]);
+subplot(1, 3, 2);
+plot(om, angle(H));
+title(['Faza pentru M=' sprintf('%.2f', Mc) ...
+        ' si w=' sprintf('%.2f', wc) ...
+        ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor) ...
+        ',b. ingusta= ' sprintf('%.2f', banda_tranzitie_ingusta)]);
+xlabel("Frecventa normalizata");
+ylabel("Faza in rad");
+subplot(1,3,3);
+stem(h);
+title(['Secventa pondere pentru M=' sprintf('%.2f', Mc) ...
+            ' si w=' sprintf('%.2f', wb(i)) ...
+    ', si Suma Tolerantelor=' sprintf('%.2f', suma_tolerantelor) ...
+    ',b. ingusta= ' sprintf('%.2f', banda_tranzitie_ingusta)]);
+        xlabel('Durata ferestrei');
+        ylabel('Amplitudine');
+            %  end
+%    end
+%end
+ suma_minima
+ M_min
+ w_min
+ k_min
